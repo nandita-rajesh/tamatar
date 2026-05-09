@@ -13,15 +13,23 @@ print(f"Using device: {device}")
 # Transforms (IMPORTANT: same for train + test)
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomRotation(20),
+    transforms.RandomAffine(
+        degrees=0,
+        shear=10,
+        scale=(0.9, 1.1)),
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225])
+    transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
+    )
 ])
 
 # Load dataset
 train_loader, _, _ = load_dataset(
     data_path="dataset",
-    batch_size=8,
+    batch_size=10,
     transform=transform,
     train_ratio=1.0,
     val_ratio=0.0,
@@ -36,7 +44,7 @@ model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
 
 # Freeze layers
 for param in model.parameters():
-    param.requires_grad = False
+    param.requires_grad = True
 
 # Replace final layer
 num_features = model.fc.in_features
@@ -45,7 +53,10 @@ model = model.to(device)
 
 # Loss & Optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.fc.parameters(), lr=LEARNING_RATE)
+optimizer = optim.SGD(
+    model.fc.parameters(), 
+    lr=LEARNING_RATE,
+    momentum=0.9)
 
 # ========================
 # TRAINING

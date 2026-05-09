@@ -33,7 +33,7 @@ def main():
     # ========================
     dataset = ImageFolder("dataset", transform=transform)
 
-    loader = DataLoader(dataset, batch_size=8, shuffle=False)
+    loader = DataLoader(dataset, batch_size=10, shuffle=False)
 
     classes = dataset.classes
     num_classes = len(classes)

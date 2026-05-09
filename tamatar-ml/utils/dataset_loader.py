@@ -2,7 +2,7 @@ import torch
 from torch.utils.data import random_split, DataLoader
 from torchvision.datasets import ImageFolder
 
-def load_dataset(data_path, batch_size=8, transform=None, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, seed=42):
+def load_dataset(data_path, batch_size=10, transform=None, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, seed=42):
     """
     Load and split the dataset into training, validation, and testing sets.
 

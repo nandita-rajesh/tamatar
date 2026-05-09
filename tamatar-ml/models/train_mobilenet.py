@@ -7,8 +7,14 @@ import os
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomRotation(20),
+    transforms.RandomAffine(
+        degrees=0,
+        shear=10,
+        scale=(0.9, 1.1)),
     transforms.ToTensor(),
-    transforms.Normalize(   
+    transforms.Normalize(
         mean=[0.485, 0.456, 0.406],
         std=[0.229, 0.224, 0.225]
     )
@@ -16,7 +22,7 @@ transform = transforms.Compose([
 
 loader, _, _ = load_dataset(
     data_path="dataset",
-    batch_size=8,
+    batch_size=10,
     transform=transform,
     train_ratio=1.0,
     val_ratio=0.0,
@@ -30,7 +36,7 @@ model = torchvision.models.mobilenet_v2(
 )
 
 for param in model.parameters():
-    param.requires_grad = False
+    param.requires_grad = True
 
 model.classifier[1] = torch.nn.Linear(model.last_channel, len(classes))
 
@@ -39,9 +45,10 @@ print(f"Using device: {device}")
 model = model.to(device)
 
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(
+optimizer = torch.optim.SGD(
     model.classifier[1].parameters(),
-    lr=LEARNING_RATE
+    lr=LEARNING_RATE,
+    momentum=0.9
 )
 
 for epoch in range(EPOCHS):
