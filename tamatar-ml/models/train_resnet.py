@@ -13,12 +13,7 @@ print(f"Using device: {device}")
 # Transforms (IMPORTANT: same for train + test)
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
-    transforms.RandomHorizontalFlip(p=0.5),
-    transforms.RandomRotation(20),
-    transforms.RandomAffine(
-        degrees=0,
-        shear=10,
-        scale=(0.9, 1.1)),
+
     transforms.ToTensor(),
     transforms.Normalize(
         mean=[0.485, 0.456, 0.406],

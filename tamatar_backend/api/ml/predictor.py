@@ -17,7 +17,7 @@ def _load_model():
         return
 
     models_dir = Path(__file__).resolve().parent / "models"
-    model_path = models_dir / "KNN_model.pkl"
+    model_path = models_dir / "LSVM_model.pkl"
 
     if not model_path.exists():
         raise FileNotFoundError(f"Model file not found: {model_path}")
