@@ -1,0 +1,144 @@
+{
+  "source": {
+    "name": "University of Minnesota Extension",
+    "url": "https://extension.umn.edu/plant-diseases/tomato-leaf-spot-diseases"
+  },
+
+  "Tomato_Bacterial_spot": {
+    "label": "Bacterial spot",
+    "severity": "Severe",
+    "description": "Small dark brown to black water-soaked spots on leaves, stems, and fruit that may merge and cause leaf drop.",
+    "actions": [
+      "Avoid overhead watering",
+      "Do not handle plants when wet",
+      "Remove infected plant material",
+      "Use disease-free seeds and transplants",
+      "Disinfect tools and equipment",
+      "Apply copper-based bactericides if recommended"
+    ]
+  },
+
+  "Tomato_Early_blight": {
+    "label": "Early blight",
+    "severity": "Severe",
+    "description": "Dark irregular spots with concentric rings that usually begin on lower leaves and spread upward.",
+    "actions": [
+      "Remove infected leaves immediately",
+      "Mulch around plants to reduce soil splash",
+      "Water at the base of the plant",
+      "Improve airflow through proper spacing",
+      "Rotate crops regularly",
+      "Apply fungicides if disease spreads"
+    ]
+  },
+
+  "Tomato_Late_blight": {
+    "label": "Late blight",
+    "severity": "Severe",
+    "description": "Rapidly spreading dark lesions on leaves and fruit, often with pale green borders and white mold in humid conditions.",
+    "actions": [
+      "Remove and destroy infected plants",
+      "Avoid working with wet plants",
+      "Reduce humidity and improve ventilation",
+      "Monitor plants frequently during cool wet weather",
+      "Apply recommended fungicides promptly",
+      "Do not compost infected plant material"
+    ]
+  },
+
+  "Tomato_Leaf_Mold": {
+    "label": "Leaf mold",
+    "severity": "Moderate",
+    "description": "Yellow spots on upper leaf surfaces with olive-green or gray mold growth underneath leaves.",
+    "actions": [
+      "Improve greenhouse or garden ventilation",
+      "Reduce humidity around plants",
+      "Avoid wetting leaves during watering",
+      "Remove heavily infected leaves",
+      "Increase spacing between plants",
+      "Use resistant tomato varieties when available"
+    ]
+  },
+
+  "Tomato_Septoria_leaf_spot": {
+    "label": "Septoria leaf spot",
+    "severity": "Severe",
+    "description": "Small circular spots with gray or tan centers and dark borders appearing mainly on lower leaves.",
+    "actions": [
+      "Remove infected foliage",
+      "Keep foliage dry",
+      "Apply fungicide if needed",
+      "Maintain proper spacing"
+    ]
+  },
+
+  "Tomato_Spider_mites_Two_spotted_spider_mite": {
+    "label": "Two-spotted spider mite",
+    "severity": "Moderate",
+    "description": "Tiny mites causing yellow speckling, bronzing, and fine webbing on leaves.",
+    "actions": [
+      "Spray undersides of leaves with water",
+      "Inspect plants regularly for mites",
+      "Increase humidity around plants",
+      "Use insecticidal soap or miticide if infestations worsen",
+      "Remove heavily infested leaves",
+      "Encourage beneficial predatory insects"
+    ]
+  },
+
+  "Tomato__Target_Spot": {
+    "label": "Target spot",
+    "severity": "Severe",
+    "description": "Brown circular lesions with concentric ring patterns that can enlarge and damage foliage.",
+    "actions": [
+      "Remove infected leaves and debris",
+      "Improve airflow between plants",
+      "Avoid overhead irrigation",
+      "Keep foliage dry",
+      "Rotate crops between seasons",
+      "Apply fungicide if symptoms increase"
+    ]
+  },
+
+  "Tomato__Tomato_YellowLeaf__Curl_Virus": {
+    "label": "Tomato yellow leaf curl virus",
+    "severity": "Severe",
+    "description": "Leaves curl upward and yellow while plants become stunted and bushy.",
+    "actions": [
+      "Remove infected plants immediately",
+      "Control whitefly populations",
+      "Use resistant tomato varieties",
+      "Install insect barriers or reflective mulch",
+      "Keep weeds under control",
+      "Disinfect gardening tools regularly"
+    ]
+  },
+
+  "Tomato__Tomato_mosaic_virus": {
+    "label": "Tomato mosaic virus",
+    "severity": "Severe",
+    "description": "Mottled mosaic-like light and dark green patterns on leaves with distorted or stunted growth.",
+    "actions": [
+      "Remove infected plants",
+      "Disinfect hands and tools frequently",
+      "Avoid tobacco use near plants",
+      "Do not handle plants when wet",
+      "Use certified disease-free seeds",
+      "Plant resistant tomato varieties if available"
+    ]
+  },
+
+  "Tomato_healthy": {
+    "label": "Healthy",
+    "severity": "Healthy",
+    "description": "No visible disease symptoms detected. Plant foliage appears healthy and vigorous.",
+    "actions": [
+      "Continue regular watering and fertilization",
+      "Monitor plants routinely for early symptoms",
+      "Maintain proper plant spacing",
+      "Keep garden tools clean",
+      "Use mulch to reduce soil-borne disease spread",
+      "Practice crop rotation each season"
+    ]
+  }
+}

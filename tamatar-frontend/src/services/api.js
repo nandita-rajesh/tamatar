@@ -18,7 +18,7 @@ export const predictDisease = async (imageFile) => {
     formData.append('image', imageFile);
 
     // Make POST request to backend
-    const response = await fetch(`${API_BASE_URL}/predict`, {
+    const response = await fetch(`${API_BASE_URL}/predict/`, {
       method: 'POST',
       body: formData,
     });
@@ -37,20 +37,5 @@ export const predictDisease = async (imageFile) => {
       throw new Error('Network error. Please check your internet connection.');
     }
     throw error;
-  }
-};
-
-/**
- * Check if backend API is available
- * @returns {Promise<boolean>}
- */
-export const checkApiHealth = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/health`, {
-      method: 'GET',
-    });
-    return response.ok;
-  } catch (error) {
-    return false;
   }
 };

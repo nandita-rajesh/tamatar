@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ImageUpload from './components/ImageUpload';
 import ResultDisplay from './components/ResultDisplay';
 import { predictDisease } from './services/api';
-import { diseaseMap } from './data/diseaseData';
+import diseaseMeta from './data/diseaseMeta.json';
 import './App.css';
 import tomatoLogo from "./assets/tomato.png";
 
@@ -28,22 +28,40 @@ function App() {
     setError(null);
 
     try {
-      // 🔥 FAKE API DELAY
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Call real API: upload `selectedImage` as FormData (key: `image`)
+      const data = await predictDisease(selectedImage);
 
-      // 🔥 MOCK RESPONSE (like backend would return)
-      const prediction = {
-        class: "Tomato___Late_blight",
-        confidence: 0.973
+      // Backend returns: { prediction: "Tomato_Late_blight", confidence: 0.40, class_index: 2 }
+      // Use `prediction` directly and look it up in `diseaseMeta.json`.
+      const predictedRaw = data && (data.prediction || data.class) ? (data.prediction || data.class) : '';
+      const confidence = data && (typeof data.confidence === 'number' ? data.confidence : null);
+
+      // fallback: if no prediction string but class_index present, map index -> backend class
+      const indexToClass = {
+        0: 'Tomato_Bacterial_spot',
+        1: 'Tomato_Early_blight',
+        2: 'Tomato_Late_blight',
+        3: 'Tomato_Leaf_Mold',
+        4: 'Tomato_Septoria_leaf_spot',
+        5: 'Tomato_Spider_mites_Two_spotted_spider_mite',
+        6: 'Tomato__Target_Spot',
+        7: 'Tomato__Tomato_YellowLeaf__Curl_Virus',
+        8: 'Tomato__Tomato_mosaic_virus',
+        9: 'Tomato_healthy'
       };
 
-      const mapped = diseaseMap[prediction.class] || {
-        label: prediction.class,
-        severity: "Healthy",
-        description: "No disease detected.",
+      let key = predictedRaw;
+      if (!key && data && typeof data.class_index === 'number') {
+        key = indexToClass[data.class_index] || '';
+      }
+
+      const mapped = (key && diseaseMeta[key]) ? diseaseMeta[key] : {
+        label: key || 'Unknown',
+        severity: "Unknown",
+        description: "No disease information available.",
         actions: [
-          "Continue regular care",
-          "Monitor plant health"
+          "Retake the photo",
+          "Consult an expert"
         ]
       };
 
@@ -52,7 +70,7 @@ function App() {
         severity: mapped.severity,
         description: mapped.description,
         actions: mapped.actions,
-        confidence: (prediction.confidence * 100).toFixed(1)
+        confidence: confidence ? (confidence * 100).toFixed(1) : '0.0'
       });
 
     } catch (err) {
