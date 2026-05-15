@@ -22,14 +22,18 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9fy&2=kqcnk_he98s4i9-nqdjxv^$e2)_gher1(w)*te)29v2&'
+# Allow overriding SECRET_KEY from environment for production deployments
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9fy&2=kqcnk_he98s4i9-nqdjxv^$e2)_gher1(w)*te)29v2&')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY: default to False in production; set DEBUG=True locally via env var if needed
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+# Hosts and CSRF trusted origins can be provided via environment variables (comma-separated)
+ALLOWED_HOSTS = [h for h in os.environ.get('ALLOWED_HOSTS', '*').split(',') if h]
+CSRF_TRUSTED_ORIGINS = [u for u in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if u]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS: keep existing setting but prefer configuring allowed origins in production
+CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', 'False') == 'True'
 
 # Application definition
 INSTALLED_APPS = [
@@ -48,6 +52,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise allows Django to serve its own static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,6 +128,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# Directory where `collectstatic` will collect static files for deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Use WhiteNoise storage backend to serve compressed static files
+# Use CompressedStaticFilesStorage to avoid manifest-rebuild issues when no hashed files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# If behind a proxy (Railway), honor X-Forwarded-Proto header for secure redirects
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

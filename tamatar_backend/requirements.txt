@@ -38,3 +38,7 @@ torch==2.11.0
 torchvision==0.26.0
 triton==3.6.0
 typing_extensions==4.15.0
+
+# Runtime / deployment requirements
+gunicorn==21.2.0
+whitenoise==6.5.0
